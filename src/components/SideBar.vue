@@ -9,7 +9,7 @@ import TheSkeletons from "./TheSkeletons.vue";
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .container {
   display: flex;
   width: 236px;
@@ -22,9 +22,10 @@ import TheSkeletons from "./TheSkeletons.vue";
   background: var(--seondary-bg, #262626);
   box-sizing: border-box;
   margin-right: 24px;
-}
 
-img {
-  margin-bottom: 20px;
+  img {
+    margin-bottom: 20px;
+
+  }
 }
 </style>

@@ -3,15 +3,15 @@
 <template>
   <div class="big-line"></div>
   <div class="med-line-container">
-    <div class="med-line"></div>
-    <div class="med-line"></div>
-    <div class="med-line"></div>
+    <div></div>
+    <div></div>
+    <div></div>
   </div>
   <div class="smaller-line"></div>
   <div class="smallest-line"></div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .big-line {
   width: 211px;
   height: 30px;
@@ -28,13 +28,13 @@
   gap: 16px;
   border-radius: 4px;
   margin-bottom: 16px;
-}
+  div {
+      height: 10px;
+      border-radius: 4px;
+      width: 100%;
+      background: linear-gradient(90deg, #3c3c3c 0%, #444 51.04%, #333 100%);
 
-.med-line {
-  height: 10px;
-  border-radius: 4px;
-  width: 100%;
-  background: linear-gradient(90deg, #3c3c3c 0%, #444 51.04%, #333 100%);
+  }
 }
 
 .smaller-line {

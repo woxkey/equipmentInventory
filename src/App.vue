@@ -8,7 +8,7 @@ import TheInventory from "./components/TheInventory.vue";
   </main>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 main {
   margin-top: 100px;
 }

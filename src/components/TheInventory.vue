@@ -15,6 +15,7 @@ export interface Item {
 const items: Ref<Item[]> = ref([]);
 const show: Ref<boolean> = ref(false);
 const selectedItem: Ref<number> = ref(0);
+const selectedType: Ref<string> = ref("");
 
 const storedItems = localStorage.getItem("items");
 
@@ -51,9 +52,10 @@ const onDrop = (event: DragEvent | any, index: number) => {
   }
 };
 
-const handleClick = (id: number) => {
+const handleClick = (id: number, type: string) => {
   show.value = !show.value;
   selectedItem.value = id;
+  selectedType.value = type;
 };
 
 const updateValue = (newValue: boolean) => {
@@ -71,6 +73,7 @@ const updateValue = (newValue: boolean) => {
           :update-value="updateValue"
           :selectedItemId="selectedItem"
           :items="items"
+          :selectedType="selectedType"
         />
         <div
           class="inventory-item"
@@ -82,7 +85,7 @@ const updateValue = (newValue: boolean) => {
         >
           <div
             class="inventory-item-folder"
-            @click="handleClick(items[0].id)"
+            @click="handleClick(items[0].id, 'green')"
             @dragstart="startDrag($event, items[0].id)"
             v-if="index - 1 === items[0].id"
             draggable="true"
@@ -94,7 +97,7 @@ const updateValue = (newValue: boolean) => {
           </div>
           <div
             class="inventory-item-folder"
-            @click="handleClick(items[1].id)"
+            @click="handleClick(items[1].id, 'yellow')"
             @dragstart="startDrag($event, items[1].id)"
             v-if="index - 1 === items[1].id"
             draggable="true"
@@ -106,7 +109,7 @@ const updateValue = (newValue: boolean) => {
           </div>
           <div
             class="inventory-item-folder"
-            @click="handleClick(items[2].id)"
+            @click="handleClick(items[2].id, 'blue')"
             @dragstart="startDrag($event, items[2].id)"
             v-if="index - 1 === items[2].id"
             draggable="true"
@@ -123,19 +126,19 @@ const updateValue = (newValue: boolean) => {
   </div>
 </template>
 
-<style scoped>
+<style scoped lang="scss">
 .myContainer {
   display: flex;
   justify-content: center;
   flex-direction: column;
   align-items: center;
+  &-inner {
+    display: flex;
+    justify-content: center;
+    padding-bottom: 24px;
+  }
 }
 
-.myContainer-inner {
-  display: flex;
-  justify-content: center;
-  padding-bottom: 24px;
-}
 .inventory {
   display: grid;
   position: relative;
@@ -148,36 +151,34 @@ const updateValue = (newValue: boolean) => {
   border-collapse: separate;
   overflow: hidden;
   box-sizing: border-box;
-}
-
-.inventory-item {
-  border: 1px solid #4d4d4d;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-}
-
-.inventory-item-folder {
-  position: relative;
-  cursor: pointer;
-}
-.inventory-item-folder-count {
-  position: absolute;
-  display: inline;
-  border: 1px solid #4d4d4d;
-  border-radius: 6px 0px 0px 0px;
-  width: 16px;
-  height: 16px;
-  left: 60px;
-  font-size: 10px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  top: 62px;
-  color: #fff;
-  text-align: center;
-  font-size: 10px;
-  font-weight: 500;
-  opacity: 0.4000000059604645;
+  &-item {
+    border: 1px solid #4d4d4d;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    &-folder {
+      position: relative;
+      cursor: pointer;
+      &-count {
+        position: absolute;
+        display: inline;
+        border: 1px solid #4d4d4d;
+        border-radius: 6px 0px 0px 0px;
+        width: 16px;
+        height: 16px;
+        left: 60px;
+        font-size: 10px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        top: 62px;
+        color: #fff;
+        text-align: center;
+        font-size: 10px;
+        font-weight: 500;
+        opacity: 0.4000000059604645;
+      }
+    }
+  }
 }
 </style>
