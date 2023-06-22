@@ -29,11 +29,10 @@
   border-radius: 4px;
   margin-bottom: 16px;
   div {
-      height: 10px;
-      border-radius: 4px;
-      width: 100%;
-      background: linear-gradient(90deg, #3c3c3c 0%, #444 51.04%, #333 100%);
-
+    height: 10px;
+    border-radius: 4px;
+    width: 100%;
+    background: linear-gradient(90deg, #3c3c3c 0%, #444 51.04%, #333 100%);
   }
 }
 

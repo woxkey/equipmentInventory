@@ -1,3 +1,44 @@
+<script lang="ts" setup>
+import IconGreenFolderVue from "./icons/IconGreenFolder.vue";
+import IconBlueFolderVue from "./icons/IconBlueFolder.vue";
+import IconYellowFolderVue from "./icons/IconYellowFolder.vue";
+import IconClose from "./icons/IconCloseBtn.vue";
+import { ref, watch } from "vue";
+import type { Item } from "./TheInventory.vue";
+import TheSkeletons from "./TheSkeletons.vue";
+
+const props = defineProps({
+  myShow: Boolean,
+  updateValue: Function,
+  selectedItemId: Number,
+  items: { type: Array as () => Item[], required: true },
+  selectedType: String,
+});
+
+watch(
+  () => props.myShow,
+  (newValue) => {
+    if (newValue) {
+      isDeleting.value = false;
+    }
+  }
+);
+
+const isDeleting = ref(false);
+const numberOfItemsToDelete = ref("");
+
+const handleDelete = () => {
+  const copyItems = ref<Item[]>(props.items);
+  const item = copyItems.value.find((item) => item.id === props.selectedItemId);
+  if (item) {
+    const itemsCount = Math.abs(parseInt(numberOfItemsToDelete.value));
+    item.items = item.items - itemsCount >= 0 ? item.items - itemsCount : 0;
+  }
+  isDeleting.value = false;
+  numberOfItemsToDelete.value = "";
+};
+</script>
+
 <template>
   <transition name="modal" :appear="true">
     <div class="modal" v-if="props.myShow">
@@ -40,47 +81,6 @@
     </div>
   </transition>
 </template>
-
-<script lang="ts" setup>
-import IconGreenFolderVue from "./icons/IconGreenFolder.vue";
-import IconBlueFolderVue from "./icons/IconBlueFolder.vue";
-import IconYellowFolderVue from "./icons/IconYellowFolder.vue";
-import IconClose from "./icons/IconCloseBtn.vue";
-import { ref, watch } from "vue";
-import type { Item } from "./TheInventory.vue";
-import TheSkeletons from "./TheSkeletons.vue";
-
-const props = defineProps({
-  myShow: Boolean,
-  updateValue: Function,
-  selectedItemId: Number,
-  items: { type: Array as () => Item[], required: true },
-  selectedType: String,
-});
-
-watch(
-  () => props.myShow,
-  (newValue) => {
-    if (newValue) {
-      isDeleting.value = false;
-    }
-  }
-);
-
-const isDeleting = ref(false);
-const numberOfItemsToDelete = ref("");
-
-const handleDelete = () => {
-  const copyItems = ref<Item[]>(props.items);
-  const item = copyItems.value.find((item) => item.id === props.selectedItemId);
-  if (item) {
-    const itemsCount = Math.abs(parseInt(numberOfItemsToDelete.value));
-    item.items = item.items - itemsCount >= 0 ? item.items - itemsCount : 0;
-  }
-  isDeleting.value = false;
-  numberOfItemsToDelete.value = "";
-};
-</script>
 
 <style scoped lang="scss">
 .modal {

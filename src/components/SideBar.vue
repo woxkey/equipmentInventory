@@ -25,7 +25,6 @@ import TheSkeletons from "./TheSkeletons.vue";
 
   img {
     margin-bottom: 20px;
-
   }
 }
 </style>
